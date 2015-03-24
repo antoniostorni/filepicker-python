@@ -7,7 +7,7 @@ This module provides an easy way to use [Filepicker's REST API](https://www.file
 
 # Installation
 
-Install ``filepicker`` with pip (**package will be updated soon**)
+Install ``filepicker`` with pip
 
     $ pip install filepicker
 
