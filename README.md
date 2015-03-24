@@ -1,11 +1,13 @@
 Filepicker Python Library
 ===================
 
+![travisci](https://api.travis-ci.org/filepicker/filepicker-python.svg?branch=master)
+
 This module provides an easy way to use [Filepicker's REST API](https://www.filepicker.com/documentation/file_ingestion/rest_api/retrieving) in your Python projects.
 
 # Installation
 
-Install ``filepicker`` with pip (**package will be updated soon**)
+Install ``filepicker`` with pip
 
     $ pip install filepicker
 
@@ -14,6 +16,12 @@ or directly from GitHub
     $ pip install git+https://github.com/filepicker/filepicker-python.git
 
 It will also install `requests` package.
+
+### Build status
+
+| master  | ![travis](https://api.travis-ci.org/filepicker/filepicker-python.svg?branch=master)  |
+|---|:---:|
+| develop | ![travis](https://api.travis-ci.org/filepicker/filepicker-python.svg?branch=develop) |
 
 # How to use it
 Filepicker library gives you access to two useful classes:
