@@ -173,7 +173,7 @@ To learn more about our conversion and storing parameters, please check out [our
 ## Security, policies and signatures
 
 If you enable Security in our [Developer Portal](https://developers.filepicker.com/login/), uploading
-and and accessing your files will require you create special policies. You can read more about them [here](https://www.filepicker.com/documentation/security/overview)
+and and accessing your files will require you create special policies. You can read more about them [here](https://www.filepicker.com/documentation/security)
 
 Filepicker library makes it really easy for you:
 

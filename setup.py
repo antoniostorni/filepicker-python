@@ -7,10 +7,10 @@ def read(filename):
 
 setup(
     name='filepicker',
-    version='0.2.0',
+    version='0.2.1',
     license='ISC',
     description='Filepicker REST API Library',
-    long_description=read('README.md'),
+    #long_description=read('README.md'),
     url='https://github.com/filepicker/filepicker-python',
     author='filepicker.io',
     author_email='support@filepicker.io',
