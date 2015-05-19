@@ -6,6 +6,7 @@ import requests
 
 from .filepicker_file import FilepickerFile
 from .filepicker_policy import FilepickerPolicy
+from .version import __version__
 
 
 class FilepickerClient(object):
@@ -57,8 +58,10 @@ class FilepickerClient(object):
         storage = storage or self.storage
         post_url = '{}/store/{}'.format(self.API_URL, storage)
         params['key'] = self.api_key
+        headers = {'User-Agent': 'filepicker-python {}'.format(__version__)}
+
         response = requests.post(post_url, data=data, files=files,
-                                 params=params)
+                                 params=params, headers=headers)
         try:
             response_dict = json.loads(response.text)
             return FilepickerFile(response_dict=response_dict,

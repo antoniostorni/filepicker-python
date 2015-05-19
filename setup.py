@@ -1,13 +1,22 @@
 import os
+import re
 from setuptools import setup, find_packages
 
 
 def read(filename):
     return open(os.path.join(os.path.dirname(__file__), filename)).read()
 
+version = ''
+with open('filepicker/version.py', 'r') as fd:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+                        fd.read(), re.MULTILINE).group(1)
+
+if not version:
+    raise RuntimeError('Cannot find version information')
+
 setup(
     name='filepicker',
-    version='0.2.1',
+    version=version,
     license='ISC',
     description='Filepicker REST API Library',
     #long_description=read('README.md'),

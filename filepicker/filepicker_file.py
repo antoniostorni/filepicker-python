@@ -11,6 +11,7 @@ except ImportError:
 import requests
 
 from .filepicker_policy import FilepickerPolicy
+from .version import __version__
 
 
 class FilepickerFile(object):
@@ -138,9 +139,11 @@ class FilepickerFile(object):
         return self.url + '?' + parser.urlencode(params)
 
     def __post(self, url, data=None, files=None, **kwargs):
+        headers = {'User-Agent': 'filepicker-python {}'.format(__version__)}
         try:
             r = requests.post(url, data=data, files=files,
-                              params=kwargs.get('params'))
+                              params=kwargs.get('params'),
+                              headers=headers)
             rd = json.loads(r.text)
             return FilepickerFile(
                     response_dict=rd, api_key=self.api_key,
