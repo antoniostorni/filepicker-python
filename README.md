@@ -1,6 +1,8 @@
 Filepicker Python Library
 ===================
 
+![pypi-release](https://pypip.in/version/filepicker/badge.svg)
+![pypi-downloads](https://pypip.in/download/filepicker/badge.svg)
 ![travisci](https://api.travis-ci.org/filepicker/filepicker-python.svg?branch=master)
 
 This module provides an easy way to use [Filepicker's REST API](https://www.filepicker.com/documentation/file_ingestion/rest_api/retrieving) in your Python projects.
@@ -171,7 +173,7 @@ To learn more about our conversion and storing parameters, please check out [our
 ## Security, policies and signatures
 
 If you enable Security in our [Developer Portal](https://developers.filepicker.com/login/), uploading
-and and accessing your files will require you create special policies. You can read more about them [here](https://www.filepicker.com/documentation/security/overview)
+and and accessing your files will require you create special policies. You can read more about them [here](https://www.filepicker.com/documentation/security)
 
 Filepicker library makes it really easy for you:
 
