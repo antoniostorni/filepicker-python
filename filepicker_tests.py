@@ -111,7 +111,7 @@ class FilepickerClientTest(unittest2.TestCase):
             else:
                 self.assertEqual(url.path, '/api/store/azure')
             content = json.dumps(self.UPLOADED_FILE)
-            return { 'status_code': 200, 'content': content}
+            return {'status_code': 200, 'content': content}
 
         with HTTMock(api_url):
             self.client.store_from_url('example.com/default.jpg')
@@ -185,7 +185,6 @@ class FilepickerClientTest(unittest2.TestCase):
         @urlmatch(netloc=r'www\.filepicker\.io', path='/api', method='post',
                   scheme='https')
         def api_url(url, request):
-            # return json.dumps(self.UPLOADED_FILE).encode('utf-8')
             return {'status_code': 200,
                     'content': json.dumps(self.UPLOADED_FILE).encode('utf-8')}
 
@@ -195,6 +194,19 @@ class FilepickerClientTest(unittest2.TestCase):
         self.assertNotEqual(secret_before, secret_after)
         self.assertEqual(file.api_key, self.client.api_key)
         self.assertEqual(file.app_secret, self.client.app_secret)
+
+    def test_user_agent_header(self):
+        @urlmatch(netloc=r'www\.filepicker\.io', path='/api', method='post',
+                  scheme='https')
+        def api_url(url, request):
+            user_agent = request.headers.get('User-Agent', None)
+            self.assertTrue(user_agent is not None)
+            self.assertTrue(user_agent.startswith('filepicker-python'))
+            return {'status_code': 200,
+                    'content': json.dumps(self.UPLOADED_FILE).encode('utf-8')}
+
+        with HTTMock(api_url):
+            self.client.store_from_url('filepicker.com/awesome.jpg')
 
 
 class FilepickerFileTest(unittest2.TestCase):
@@ -464,6 +476,30 @@ class FilepickerFileTest(unittest2.TestCase):
         self.assertRegexpMatches(
                 url,
                 r'{}.+policy.+'.format(self.file.url))
+
+    def test_user_agent_header(self):
+        dest_path = 'delete_this_test_leftover'
+
+        @all_requests
+        def api(url, request):
+            user_agent = request.headers.get('User-Agent', None)
+            self.assertTrue(user_agent is not None)
+            self.assertTrue(user_agent.startswith('filepicker-python'))
+            j = {"url": "https://www.filepicker.io/api/file/ZXC",
+                 "filename": "name.jpg"}
+            return {'status_code': 200,
+                    'content': json.dumps(j).encode('utf-8')}
+
+        with HTTMock(api):
+            self.file.update_metadata()
+            self.file.overwrite(url='somenew.url/new.png')
+            self.file.download(dest_path)
+
+        try:
+            # clean up after download
+            os.remove(dest_path)
+        except IOError:
+            pass
 
 
 if __name__ == '__main__':
