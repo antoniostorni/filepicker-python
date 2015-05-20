@@ -11,6 +11,7 @@ except ImportError:
 import requests
 
 from .filepicker_policy import FilepickerPolicy
+from .version import __version__
 
 
 class FilepickerFile(object):
@@ -19,6 +20,8 @@ class FilepickerFile(object):
     METADATA_ATTRS = ['size', 'mimetype', 'filename', 'width',
                       'height', 'uploaded', 'writeable', 'md5',
                       'location', 'path', 'container', 'key']
+
+    HEADERS = {'User-Agent': 'filepicker-python {}'.format(__version__)}
 
     def __init__(self, handle=None, url=None, response_dict=None,
                  api_key=None, app_secret=None, policies={},
@@ -70,7 +73,8 @@ class FilepickerFile(object):
         params = dict((x, 'true') for x in self.METADATA_ATTRS)
         if policy_name:
             params.update(self.policies[policy_name].signature_params())
-        response = requests.get(self.url + '/metadata', params=params)
+        response = requests.get(self.url + '/metadata', params=params,
+                                headers=self.HEADERS)
         try:
             self.metadata = json.loads(response.text)
         except ValueError:
@@ -87,7 +91,7 @@ class FilepickerFile(object):
     def download(self, destination_path, policy_name=None):
         url = self.get_signed_url(policy_name) if policy_name else self.url
         with open(destination_path, 'wb') as f:
-            response = requests.get(url, stream=True)
+            response = requests.get(url, stream=True, headers=self.HEADERS)
             if response.ok:
                 for chunk in response.iter_content(1024):
                     if not chunk:
@@ -138,9 +142,11 @@ class FilepickerFile(object):
         return self.url + '?' + parser.urlencode(params)
 
     def __post(self, url, data=None, files=None, **kwargs):
+        headers = {'User-Agent': 'filepicker-python {}'.format(__version__)}
         try:
             r = requests.post(url, data=data, files=files,
-                              params=kwargs.get('params'))
+                              params=kwargs.get('params'),
+                              headers=headers)
             rd = json.loads(r.text)
             return FilepickerFile(
                     response_dict=rd, api_key=self.api_key,
