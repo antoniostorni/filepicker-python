@@ -1,8 +1,8 @@
 Filepicker Python Library
 ===================
 
-![pypi-release](https://pypip.in/version/filepicker/badge.svg)
-![pypi-downloads](https://pypip.in/download/filepicker/badge.svg)
+![pypi-release](http://img.shields.io/pypi/v/filepicker.svg)
+![pypi-downloads](http://img.shields.io/pypi/dm/filepicker.svg)
 ![travisci](https://api.travis-ci.org/filepicker/filepicker-python.svg?branch=master)
 
 This module provides an easy way to use [Filepicker's REST API](https://www.filepicker.com/documentation/file_ingestion/rest_api/retrieving) in your Python projects.
