@@ -59,7 +59,7 @@ class FilepickerFile(object):
 
     def __get_handle(self):
         try:
-            return re.search(r'file/(\w+)', self.url).group(1)
+            return re.search(r'(?:file\/|filestackcontent.com\/)(\w+)', self.url).group(1)
         except AttributeError:
             raise Exception("Invalid file url")
 
